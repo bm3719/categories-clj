@@ -1,0 +1,26 @@
+* categories-clj
+
+This is a demonstration project that will be used to illustrate a few
+introductory category theory concepts in Clojure.  It consists of a
+presentation and some code
+
+These concepts will be presented at the National Capital Area Clojure Users
+Group on 2017-02-08.  See the [[https://www.meetup.com/Cap-Clug/events/236256915/][event page]] for details.
+
+* Usage
+
+This application is only intended to be used from the REPL.  To run the
+application and connect to the REPL:
+
+#+BEGIN_SRC sh
+lein repl :headless
+#+END_SRC
+
+There is also an presentation in org-mode (to be used with org-present) in the
+doc/ directory.
+
+* License
+
+Copyright © 2017
+
+Distributed under the GNU Public License version 3.0.
