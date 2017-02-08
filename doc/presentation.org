@@ -6,24 +6,12 @@ An introduction...
 - Sample of concepts used in programming languages
 - Some Category Theory libraries and examples
 
->>>
-
-State of Clojure.  Low academia/science use.
-
-Open discussion.  Not an expert.
 * Monads
 
 "A monad is just a monoid in the category of endofunctors, what's the problem?"
 
 - Phil Wadler
 
->>>
-
-Sometimes misattributed to Simon Peyton Jones.
-
-Actually not true.
-
-Also intentionally confusing.
 * Actually...
 
 "All told, a monad in X is just a monoid in the category of endofunctors of X,
@@ -32,12 +20,6 @@ identity endofunctor."
 
 - Saunders Mac Land from "Categories for the Working Mathematician"
 
-
->>>
-
-Hopefully more clear
-
-Now let's write some code.
 * Category Theory
 
                          [[./history.jpg]]
@@ -46,16 +28,6 @@ Category Theory is about higher-order abstractions, composing things, and
 reasoning about them.
 
 Formalization of mathematical structure.
-
->>>
-
-An attempt to formalize and abstract out things at the highest level.
-
-A field of mathematics, often used to study other fields of mathematics.
-
-Sometimes it's criticized for this, labeled "abstract nonsense".
-
-Also used extensively in physics and, of course, computer science.
 
 * Why category theory?
 
@@ -73,21 +45,6 @@ Used and expressible in:
 
 We already use a lot of other mathematical abstractions in programming.
 
->>>
-
-Programmers create abstractions.
-
-Idris is a dependently typed pure FPL with theorem prover features.  However,
-it's a general purpose language.
-
-Also possible in dynamic functional languages, as we'll see.
-
-CT is just another mathematical abstraction, like:
-- formal logic
-- lambda calculus
-- type theory (in the form of the more formal type systems)
-- sets
-
 * Set theory analogy
 
 Set theory:
@@ -102,15 +59,6 @@ Category theory:
 - In *Set*, the objects are all possible sets, the arrows are mutations that can
   be performed on a particular set.
 
->>>
-
-properties: unordered, no repeats.
-mutate set: add, remove
-
-The empty set is an object in Set
-
-Other examples: Natural numbers, rationals
-
 * The Category
 
                           [[./basic_category.jpg]]
@@ -123,23 +71,6 @@ The empty set ∅ is an "initial object" in Set.
 
 For every set S in category Set, there exists exactly one morphism from ∅ → S.
 
->>>
-
-Let's at least cover a formal definition of a category.
-
-Category:
-- Collection of objects and morphisms.
-- Morphisms have domains and codomains.
-- Every object has an identity morphism.
-- Morphisms can be composed.
-  f: A -> B
-  g: B -> C
-  gf: A -> C
-- Morphisms are associative.
-
-Normally, I'd build up from here, cover functors, applicatives, monoids, then
-monads.  Let's skip ahead to actually using some concepts though.
-
 * Haskell
 
 Haskell offers the most salient expression of categories, thanks to
@@ -150,29 +81,6 @@ typeclasses.
 A typeclass in Haskell defines behavior.  When something is an instance of a
 typeclass, we know it supports the behavior that the typeclass defines.
 
->>>
-
-Here's some of the CT coverage in Haskell.  Only Apply, Comonad, and
-Semigroup have yet to be implemented
-
-Typeclasses are kinda like Java interfaces, but not exactly.  Differences:
-- Interface methods are associated with an object instance.
-- No concept of a Java class attached to implementation of an interface.
-- Typeclasses allow for default implementations.
-
-:t "hi"
-
-The == function can illustrate this.
-
-What's the type of ==?
-
-=> is a class constraint.
-
-We see it takes a parameter of typeclass Eq.
-
-Run: :info Eq
-
-
 * Functors
 
 The Functor typeclass represents things that can be mapped over.
@@ -181,28 +89,6 @@ class Functor f where
     fmap :: (a -> b) -> f a -> f b
 
 Any type that acts like a container for something can be a Functor.
-
->>>
-
-Now that we know what a typeclass is, we can cover functors.
-
-:t map
-
-map (+ 1) [1,2,3,4]
-
-:t fmap
-
-fmap (+ 1) [1,2,3,4]
-
-Why's this work?
-
-:info []
-
-[] is an instance of Functor.
-
-In CT, functors are homomorphisms (a structure-preserving map) between
-categories.
-
 
 * Monads
 
@@ -219,19 +105,6 @@ class Monad m where
     fail :: String -> m a
     fail msg = error msg
 
->>>
-
-What's going on here?
-
-return and one of the bind functions have type signatures and require
-implementations.
-
-The last two functions have default implementations.
-
-Note that this differs a little from the formal CT definition that we didn't
-cover.  For example, a monad is defined as a triple of an endofunctor and two
-natural transformations.  One of those, return, should be called eta.
-
 * The Maybe monad
 
 What if we want to say something can return a value of a certain type or
@@ -243,21 +116,6 @@ instance Monad Maybe where
     (>>=) m g = case m of
                    Nothing -> Nothing
                    Just x  -> g x
->>>
-
-The Maybe monad is probably one of the simpler monads.
-
-:t Just 1
-:t Maybe
-
-f :: Int -> Maybe Int
-f 0 = Nothing
-f x = Just x
-
-Now that we have a Maybe monad, we can fmap over it.
-
-fmap (+ 1) (Just 2)
-
 * cats
 
 cats is definitely the most popular and active of the libraries that provide
@@ -265,22 +123,11 @@ category theory concepts to Clojure.
 
 cats is:
 - A more native Clojure-y approach.
-- Quite full featured.
+- Quite full-featured.
 - CLJS support.
 - Has advanced concepts not often seen outside Haskell, like Semigroups,
   MonadPlus, etc.
 - Generative testing support.
-
->>>
-
-Great documentation, which is also very educational.
-
-None of the CT libs have a ton of activity though.
-
-(defn query-gender-maybe []
-  (cats/fmap #(str "demi-" %)
-             (rand-nth [(maybe/just (rand-nth my-genders))
-                        (maybe/nothing)])))
 
 * Other category theory libraries
 
@@ -288,11 +135,6 @@ There's also algo.monads, which is just a collection of macros for defining
 monads.  Also a few others now, of varying adoption.
 
 Fluokitten is probably the second most popular after cats.
-
->>>
-
-algo.monads was the first, written by Rich.
-
 
 * Some random observations
 
@@ -310,19 +152,6 @@ existing tools.
 
 Doubtful the concept will ever go mainstream in Clojure.
 
->>>
-
-Category theory concepts can be a part of the business logic of your program.
-E.g. data analytic framework.
-
-Categories in statically typed languages retain the notion that CT is for
-composition.  In cats, we can decompose at will.  Though perhaps we can
-exercise discipline.
-
-Dependently typed theorem provers are mostly heavily categorical.
-
-Has Rich, Stu, or other core language people said anything about it?
-
 * resources
 
 cats:
@@ -339,3 +168,6 @@ https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-prefa
 
 Haskell's Typeclassopedia:
 https://wiki.haskell.org/Typeclassopedia
+
+Advanced Category Theory presentation, by Angelica
+https://docs.google.com/presentation/d/1NLmR0ZjhpB2Zh1Vm2XXHqV73hE4_-RfKQjJeSFMFsVU
