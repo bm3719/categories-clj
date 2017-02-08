@@ -40,7 +40,7 @@ Hopefully more clear
 Now let's write some code.
 * Category Theory
 
-[[./history.jpg]]
+                         [[./history.jpg]]
 
 Category Theory is about higher-order abstractions, composing things, and
 reasoning about them.
@@ -59,7 +59,7 @@ Also used extensively in physics and, of course, computer science.
 
 * Why category theory?
 
-[[./dweller.jpg]]
+                         [[./dweller.jpg]]
 
 Category theory can be said to be about modeling similarities between disparate
 "things", which is fundamental to programming.
@@ -74,6 +74,8 @@ Used and expressible in:
 We already use a lot of other mathematical abstractions in programming.
 
 >>>
+
+Programmers create abstractions.
 
 Idris is a dependently typed pure FPL with theorem prover features.  However,
 it's a general purpose language.
@@ -111,7 +113,7 @@ Other examples: Natural numbers, rationals
 
 * The Category
 
-[[./basic_category.jpg]]
+                          [[./basic_category.jpg]]
 
 If cod(f) = dom(g), then g ∘ f: dom(f) → cod(g).
 
@@ -143,7 +145,7 @@ monads.  Let's skip ahead to actually using some concepts though.
 Haskell offers the most salient expression of categories, thanks to
 typeclasses.
 
-[[./typeclassopedia.jpg]]
+          [[./typeclassopedia.jpg]]
 
 A typeclass in Haskell defines behavior.  When something is an instance of a
 typeclass, we know it supports the behavior that the typeclass defines.
@@ -204,7 +206,7 @@ categories.
 
 * Monads
 
-In Haskell, monads are typeclasses, just like Functors
+In Haskell, monads are typeclasses, just like Functors and Eq
 
 class Monad m where
     return :: a -> m a
@@ -275,6 +277,11 @@ Great documentation, which is also very educational.
 
 None of the CT libs have a ton of activity though.
 
+(defn query-gender-maybe []
+  (cats/fmap #(str "demi-" %)
+             (rand-nth [(maybe/just (rand-nth my-genders))
+                        (maybe/nothing)])))
+
 * Other category theory libraries
 
 There's also algo.monads, which is just a collection of macros for defining
@@ -294,6 +301,8 @@ Category theory is currently used in programming in two main ways:
   building software.
 - Higher level abstraction layers for designing programs.
 
+There are implications of being dynamically typed.
+
 Theorem provers love categories.
 
 Monads can be used in creation of DSLs.  Totally doable in Clojure with
@@ -305,6 +314,10 @@ Doubtful the concept will ever go mainstream in Clojure.
 
 Category theory concepts can be a part of the business logic of your program.
 E.g. data analytic framework.
+
+Categories in statically typed languages retain the notion that CT is for
+composition.  In cats, we can decompose at will.  Though perhaps we can
+exercise discipline.
 
 Dependently typed theorem provers are mostly heavily categorical.
 
