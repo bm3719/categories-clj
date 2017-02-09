@@ -34,3 +34,16 @@
 
 ;; Oh no!  Now I've discovered that I'm meta-phasing genderfluid to demifluid!
 ;; All my genders are now demi-genders!
+(defn demi-query []
+  (cats/fmap #(str "demi-" %)
+             (rand-nth [(maybe/just (rand-nth my-genders)) (maybe/nothing)])))
+
+(defn query-api []
+  (if (zero? (rand-int 2))
+    (rand-nth my-genders)
+    (throw (Throwable. "GenderNotFound"))))
+
+(defn api-query []
+  (try (maybe/just (query-api))
+       (catch Throwable e
+         (maybe/nothing))))
