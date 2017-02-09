@@ -85,8 +85,10 @@ typeclass, we know it supports the behavior that the typeclass defines.
 
 The Functor typeclass represents things that can be mapped over.
 
+#+BEGIN_SRC haskell
 class Functor f where
     fmap :: (a -> b) -> f a -> f b
+#+END_SRC
 
 Any type that acts like a container for something can be a Functor.
 
@@ -94,6 +96,7 @@ Any type that acts like a container for something can be a Functor.
 
 In Haskell, monads are typeclasses, just like Functors and Eq
 
+#+BEGIN_SRC haskell
 class Monad m where
     return :: a -> m a
 
@@ -104,18 +107,22 @@ class Monad m where
 
     fail :: String -> m a
     fail msg = error msg
+#+END_SRC
 
 * The Maybe monad
 
 What if we want to say something can return a value of a certain type or
 nothing at all?  That's not easy to do in most languages.
 
+#+BEGIN_SRC haskell
 instance Monad Maybe where
     return x = Just x
 
     (>>=) m g = case m of
                    Nothing -> Nothing
                    Just x  -> g x
+#+END_SRC
+
 * cats
 
 cats is definitely the most popular and active of the libraries that provide
