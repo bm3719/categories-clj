@@ -9,15 +9,18 @@ Group on 2017-02-08.  See the [[https://www.meetup.com/Cap-Clug/events/236256915
 
 * Usage
 
-This application is only intended to be used from the REPL.  To run the
-application and connect to the REPL:
+The Clojure part of this application is only intended to be used from the REPL.
+To run the application use:
 
 #+BEGIN_SRC sh
 lein repl :headless
 #+END_SRC
 
-There is also an presentation in org-mode (to be used with org-present) in the
-doc/ directory.
+Then connect to it in Emacs via ~M-x cider-connect~.
+
+There is also a presentation in org-mode (to be used with org-present) in the
+=doc/= directory.  Open this file in Emacs and run ~M-x org-present~.  You'll, of
+course, need to have installed the org-present package.
 
 * License
 
